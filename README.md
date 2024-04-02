@@ -36,35 +36,217 @@ Developed by : Prasannalakshmi G
 Reg No : 212222240075
 ```
 
-![1](https://github.com/Aaron-I/EXNO-3-DS/assets/139863034/760d70da-c0ce-48ee-b531-cb3abee031df)
-![2](https://github.com/Aaron-I/EXNO-3-DS/assets/139863034/62ad8ce4-f27d-435b-a253-10f33a19e6b7)
+```python
+import pandas as pd
+df=pd.read_csv("/content/Encoding Data.csv")
+df
+```
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/9a445ed3-f79e-46ed-8493-a0138abde135)
 
-![3](https://github.com/Aaron-I/EXNO-3-DS/assets/139863034/5c51bd56-7489-4578-956c-9acdad31a68c)
-![4](https://github.com/Aaron-I/EXNO-3-DS/assets/139863034/ed348a1c-50f3-4bc7-b39d-ac5b2ca2a728)
-![5](https://github.com/Aaron-I/EXNO-3-DS/assets/139863034/20af1294-3432-4465-9f2a-f301363c5231)
-![6](https://github.com/Aaron-I/EXNO-3-DS/assets/139863034/0ac7bb8b-4062-4c02-a22d-dafe4de4c6a7)
-![7](https://github.com/Aaron-I/EXNO-3-DS/assets/139863034/0169f7dc-55e9-4840-a206-27371f5dd318)
-![8](https://github.com/Aaron-I/EXNO-3-DS/assets/139863034/8e4908a1-cbb9-4b73-ba74-cc456d50cd9f)
-![9](https://github.com/Aaron-I/EXNO-3-DS/assets/139863034/c7c7c33e-42dc-4e25-bcbe-0cf35fd1a7a4)
-![10](https://github.com/Aaron-I/EXNO-3-DS/assets/139863034/095a0757-f99f-42e0-b309-6f47564e66f4)
-![11](https://github.com/Aaron-I/EXNO-3-DS/assets/139863034/398e9803-0b41-4929-96a2-e41c48efd782)
-![12](https://github.com/Aaron-I/EXNO-3-DS/assets/139863034/89f1fc70-3b59-4656-bcbd-a509ae162e79)
-
-![13](https://github.com/Aaron-I/EXNO-3-DS/assets/139863034/9a4fcd70-cc9c-4a8c-a921-0d9f3df84ebc)
-![14](https://github.com/Aaron-I/EXNO-3-DS/assets/139863034/bff6a8ff-97a4-41a6-a771-c9d589d57599)
-![15](https://github.com/Aaron-I/EXNO-3-DS/assets/139863034/b3f341dd-8143-4ce0-9835-927c37c66f30)
-![16](https://github.com/Aaron-I/EXNO-3-DS/assets/139863034/d46a6213-f06d-48b3-b880-d42de56c4987)
-![17](https://github.com/Aaron-I/EXNO-3-DS/assets/139863034/e62535e4-b994-44bb-bf9a-c0aeb157ce4c)
-![18](https://github.com/Aaron-I/EXNO-3-DS/assets/139863034/2508576d-e2f5-4941-a345-24127f285d0d)
-
-![19](https://github.com/Aaron-I/EXNO-3-DS/assets/139863034/0786fc31-3e9f-4d42-aae9-2716db028eef)
-![20](https://github.com/Aaron-I/EXNO-3-DS/assets/139863034/631c134e-dc67-4b3b-bb7d-a7dd25fdc6e4)
-![21](https://github.com/Aaron-I/EXNO-3-DS/assets/139863034/7c669d1c-0a56-4c14-9849-ead948abc028)
-![22](https://github.com/Aaron-I/EXNO-3-DS/assets/139863034/711f0212-20be-48ff-8676-feebf0e6a348)
-![23](https://github.com/Aaron-I/EXNO-3-DS/assets/139863034/4f5820f3-7705-47a1-9a17-b0f8ee849620)
+```python
+from sklearn.preprocessing import LabelEncoder,OrdinalEncoder
+pm=['Hot','Warm','Cold']
+e1=OrdinalEncoder(categories=[pm])
+e1.fit_transform(df[["ord_2"]])
+```
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/c5ae2314-6f2b-4d93-92b3-f44d1b74015a)
 
 
-# RESULT:
-        Hence performing Feature Encoding and Transformation process is Successful.
+
+```python
+df['bo2']=e1.fit_transform(df[["ord_2"]])
+df
+```
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/4ae17d2a-aa22-4340-9faf-8567549250f6)
+
+
+
+```python
+le=LabelEncoder()
+dfc=df.copy()
+dfc['ord_2']=le.fit_transform(dfc['ord_2'])
+dfc
+```
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/2249ccf3-4a16-462b-b745-677312c7fd42)
+
+
+
+```python
+from sklearn.preprocessing import OneHotEncoder
+ohe=OneHotEncoder(sparse=False)
+df2=df.copy()
+enc=pd.DataFrame(ohe.fit_transform(df2[["nom_0"]]))
+```
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/d2714505-ceae-48c6-b428-fc421aaa735d)
+
+
+```python
+df2=pd.concat([df2,enc],axis=1)
+df2
+```
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/b4b4c5b2-9bc8-4f41-8649-096999696847)
+
+```python
+pd.get_dummies(df2,columns=["nom_0"])
+```
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/e56e11b0-9489-41a5-973c-e32fca8f9840)
+
+
+
+```python
+pip install --upgrade category_encoders
+```
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/0711d42f-4456-4222-8334-f183bc7c2385)
+
+
+
+```python
+from category_encoders import BinaryEncoder
+df=pd.read_csv("/content/data.csv")
+df
+```
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/3d2f8b4c-0ffc-4754-8c1b-ad637c727c9b)
+
+
+
+```python
+be=BinaryEncoder()
+nd=be.fit_transform(df['Ord_2'])
+dfb=pd.concat([df,nd],axis=1)
+dfb1=df.copy()
+dfb
+```
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/781ddd71-1fc6-499b-9234-b83778405580)
+
+
+```python
+from category_encoders import TargetEncoder
+te=TargetEncoder()
+CC=df.copy()
+new=te.fit_transform(X=CC["City"],y=CC["Target"])
+CC=pd.concat([CC,new],axis=1)
+CC
+```
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/6f1877a4-9ba9-45d6-8df2-38fdc103a0ef)
+
+
+
+```python
+import pandas as pd
+from scipy import stats
+import numpy as np
+df=pd.read_csv("/content/Data_to_Transform.csv")
+df
+```
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/63cbb12a-e9eb-447e-855a-e56c706bbfa9)
+
+
+
+```python
+df.skew()
+```
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/3d04bbce-76dc-4571-8c8d-5aad234c1766)
+
+
+
+```python
+np.log(df["Highly Positive Skew"])
+```
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/7247340c-6488-4b75-9deb-0ad3f10e03fd)
+
+
+
+```python
+np.reciprocal(df["Moderate Positive Skew"])
+```
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/71ae0399-a828-406a-93a6-0e36cc31e249)
+
+
+```python
+np.sqrt(df["Highly Positive Skew"])
+```
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/9b500fd0-9b55-4397-b1e8-364652aca983)
+
+
+```python
+np.square(df["Highly Positive Skew"])
+```
+
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/d243323b-c97e-4c55-a41f-f76d176e6461)
+
+
+```python
+df["Highly Positive Skew_boxcox"], parameters=stats.boxcox(df["Highly Positive Skew"])
+df
+```
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/758eaaba-b780-4fee-8487-d8242a9d6148)
+
+
+```python
+df["Moderate Negative Skew_yeojohnson"],parameters=stats.yeojohnson(df["Moderate Negative Skew"])
+```
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/4945b8c6-e27d-4526-9032-0c0aeb9ab576)
+
+
+```python
+import seaborn as sns
+import statsmodels.api as sm
+import matplotlib.pyplot as plt
+sm.qqplot(df["Moderate Negative Skew"],line='45')
+plt.show()
+```
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/52a7553c-c1bd-4489-a0cb-b13a27684c23)
+
+
+
+```python
+sm.qqplot(np.reciprocal(df["Moderate Negative Skew_1"]),line='45')
+plt.show()
+```
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/3688ed78-4920-4cd4-9e33-4420fc790b8d)
+
+
+
+```python
+from sklearn.preprocessing import QuantileTransformer
+qt=QuantileTransformer(output_distribution='normal',n_quantiles=891)
+
+df["Moderate Negative Skew"]=qt.fit_transform(df[["Moderate Negative Skew"]])
+
+sm.qqplot(df["Moderate Negative Skew"],line='45')
+plt.show()
+```
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/9ef5152c-d766-48e1-857c-a7dbfde4e648)
+
+
+
+```python
+df["Highly Negative Skew_1"]=qt.fit_transform(df[["Highly Negative Skew"]])
+sm.qqplot(df["Highly Negative Skew"],line='45')
+plt.show()
+```
+
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/fde4b296-88ec-46ad-b6f3-2cf2b64a15f2)
+
+
+```python
+sm.qqplot(df["Highly Negative Skew_1"],line='45')
+plt.show()
+```
+
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/57bae70b-8ee0-4ab1-86bf-733d2597089d)
+
+```python
+sm.qqplot(np.reciprocal(df["Moderate Negative Skew"]),line='45')
+plt.show()
+```
+![image](https://github.com/Prasannalakshmiganesan/EXNO-3-DS/assets/118610231/3987a28b-3816-41b2-9a9d-6a1cedf8382e)
+
+
+
+
+## RESULT:
+Thus the given data, Feature Encoding, Transformation process and save the data to a file was performed successfully.
+
 
        
