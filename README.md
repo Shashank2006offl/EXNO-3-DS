@@ -1,7 +1,7 @@
 ## EXNO-3-DS
 
 # AIM:
-To read the given data and perform Feature Encoding and Transformation process and save the data to a file.
+To read the given data and perform Feature Encoding and Transformation process and save the data to a file. 
 
 # ALGORITHM:
 STEP 1:Read the given Data.
